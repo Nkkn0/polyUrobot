@@ -2,6 +2,10 @@
 
 A clean Python starter repo for turning images into text using open Hugging Face vision-language models, plus a lightweight ASL recognition mode for robot projects.
 
+## quick setup 
+`source .venv/bin/activate
+pip install -r requirements-handwriting.txt
+pip install -e .`
 ## Two modes
 
 ### 1. Heavy image-to-text / OCR mode
