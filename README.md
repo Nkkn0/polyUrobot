@@ -11,11 +11,6 @@ Show an ASL alphabet sign to the webcam. The model predicts the letter.
 ### 2. Handwritten Letter Recognition
 
 Upload or pass an image of a handwritten letter. The model predicts the letter.
-
-### 3. General Image-to-Text / OCR
-
-Use a vision-language model to describe images or extract text from images.
-
 ---
 
 # Quick Start
