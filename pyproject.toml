@@ -33,6 +33,12 @@ asl-hf = [
     "transformers>=4.40.0",
     "pillow>=10.0.0",
 ]
+handwriting = [
+    "torch>=2.2.0",
+    "transformers>=4.40.0",
+    "pillow>=10.0.0",
+    "streamlit>=1.36.0",
+]
 
 [project.scripts]
 image-to-text = "image_to_text_vlm.cli:main"

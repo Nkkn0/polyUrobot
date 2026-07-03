@@ -56,12 +56,15 @@ image-to-text-vlm/
 │   ├── vlm.py
 │   ├── asl_landmarks.py
 │   ├── asl_classifier.py
-│   └── asl_hf.py
+│   ├── asl_hf.py
+│   └── handwriting_hf.py
 ├── scripts/
 │   ├── collect_asl_samples.py
 │   ├── train_asl_landmark_model.py
 │   ├── run_asl_realtime.py
-│   └── asl_image_hf.py
+│   ├── asl_image_hf.py
+│   ├── predict_handwritten_letter.py
+│   └── handwriting_upload_app.py
 ├── examples/
 │   ├── batch_extract.py
 │   └── structured_json.py
@@ -72,6 +75,7 @@ image-to-text-vlm/
 ├── requirements.txt
 ├── requirements-asl-lite.txt
 ├── requirements-asl-hf.txt
+├── requirements-handwriting.txt
 ├── pyproject.toml
 └── README.md
 ```
@@ -125,6 +129,63 @@ image-to-text path/to/screenshot.png --prompt "What are the main numbers in this
 ```bash
 image-to-text receipt.jpg --task json
 ```
+
+
+## Handwritten letter recognition
+
+This mode predicts a handwritten **A-Z** letter from an uploaded image or local image path.
+
+Default model:
+
+```text
+tanganke/clip-vit-base-patch16_emnist_letters
+```
+
+It uses a Hugging Face image-classification model trained on EMNIST letters. The EMNIST letters dataset contains handwritten letter images with labels from **A to Z**.
+
+Install:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install --upgrade pip
+pip install -r requirements-handwriting.txt
+pip install -e .
+```
+
+Predict from one image path:
+
+```bash
+python scripts/predict_handwritten_letter.py path/to/handwritten_A.jpg --top-k 5
+```
+
+Save the model input image to check preprocessing:
+
+```bash
+python scripts/predict_handwritten_letter.py path/to/letter.jpg \
+  --save-preprocessed outputs/preprocessed_letter.png
+```
+
+If your writing is white/light on a dark background, add:
+
+```bash
+python scripts/predict_handwritten_letter.py path/to/letter.jpg --invert
+```
+
+Run the upload web app:
+
+```bash
+streamlit run scripts/handwriting_upload_app.py
+```
+
+Then open the local URL printed by Streamlit and upload a handwritten letter image.
+
+Best results:
+
+- Put only one large letter in the image
+- Use dark pen/marker on white paper
+- Avoid ruled paper and messy backgrounds
+- Crop close to the letter, or keep auto-crop enabled
 
 ## Setup: lightweight ASL robot mode
 

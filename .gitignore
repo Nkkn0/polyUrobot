@@ -21,3 +21,7 @@ models/
 !examples/*.webp
 !examples/*.tif
 !examples/*.tiff
+
+# Local/generated files
+AzuriteConfig
+__azurite_db_table__.json
