@@ -70,12 +70,6 @@ Press q to quit.
 Press s to save a crop for testing.
 ```
 
-Start with easy static letters:
-
-```text
-A, B, C, D, E, F, I, L, O, V, W, Y
-```
-
 Avoid these at first:
 
 ```text
@@ -125,87 +119,3 @@ streamlit run scripts/handwriting_upload_app.py
 
 Then open the local Streamlit link in your browser and upload an image.
 
-Best input:
-
-```text
-One large capital handwritten letter
-Dark pen or marker
-White paper
-Good lighting
-Not a whole word
-```
-
-## Test Handwriting from Terminal
-
-```bash
-python scripts/predict_handwritten_letter.py /path/to/letter.jpg --top-k 5
-```
-
-Example:
-
-```bash
-python scripts/predict_handwritten_letter.py /Users/nossaibakheiri/Downloads/A.jpg --top-k 5
-```
-
----
-
-# 3. General Image-to-Text / OCR Mode
-
-This mode uses a vision-language model for OCR, image captioning, and structured extraction.
-
-## Install General Image-to-Text Dependencies
-
-```bash
-pip install -r requirements.txt
-pip install -e .
-```
-
-## Run OCR on an Image
-
-```bash
-image-to-text /path/to/image.png --task ocr
-```
-
-## Generate an Image Caption
-
-```bash
-image-to-text /path/to/image.jpg --task caption
-```
-
-## Extract Structured JSON
-
-```bash
-image-to-text /path/to/receipt.jpg --task json
-```
-
----
-
-# Recommended Robot Flow
-
-The final robot workflow should look like this:
-
-```text
-Input image or webcam frame
-→ Predict letter
-→ Convert predicted letter to robot drawing path
-→ Send drawing commands to mDrawBot
-→ Robot writes the letter
-```
-
-For ASL mode:
-
-```text
-Webcam
-→ ASL classifier
-→ Predicted A-Z letter
-→ Robot writes the letter
-```
-
-For handwritten mode:
-
-```text
-Uploaded handwritten letter image
-→ Handwriting recognizer
-→ Predicted A-Z letter
-→ Robot writes the letter
-```
