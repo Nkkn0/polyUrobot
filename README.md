@@ -1,15 +1,30 @@
-polyUrobot Image-to-Text / ASL / Handwriting
+# polyUrobot Image-to-Text / ASL / Handwriting
 
-This repo contains Python demos for the PolyU robot project:
+This repository contains Python demos for the PolyU robot project. The goal is to recognize letters from different visual inputs and later connect the predicted letter to the robot so it can write it.
 
-ASL letter recognition — show an ASL alphabet sign to the webcam and predict the letter.
-Handwritten letter recognition — upload or pass an image of a handwritten letter and predict the letter.
-General image-to-text / OCR — use a vision-language model to describe or extract text from images.
-Quick Start
-0. Create and activate the Python environment
+## Main Features
+
+### 1. ASL Letter Recognition
+
+Show an ASL alphabet sign to the webcam. The model predicts the letter.
+
+### 2. Handwritten Letter Recognition
+
+Upload or pass an image of a handwritten letter. The model predicts the letter.
+
+### 3. General Image-to-Text / OCR
+
+Use a vision-language model to describe images or extract text from images.
+
+---
+
+# Quick Start
+
+## 0. Create and Activate the Python Environment
 
 Run this once from the repo folder:
 
+```bash
 cd /Users/nossaibakheiri/Downloads/image-to-text-vlm
 
 python3 -m venv .venv
@@ -17,69 +32,180 @@ source .venv/bin/activate
 
 pip install --upgrade pip
 pip install -e .
+```
 
 If the environment already exists, just activate it:
 
+```bash
 cd /Users/nossaibakheiri/Downloads/image-to-text-vlm
 source .venv/bin/activate
-1. ASL Recognition Mode
+```
+
+---
+
+# 1. ASL Recognition Mode
 
 This mode predicts an ASL alphabet letter from your webcam.
 
 It uses a pretrained lightweight ASL image classifier.
 
-Install ASL dependencies
+## Install ASL Dependencies
+
+```bash
 pip install -r requirements-asl-hf.txt
 pip install -e .
-Run ASL webcam recognition
+```
+
+## Run ASL Webcam Recognition
+
+```bash
 python scripts/run_asl_hf_webcam.py --camera 0 --mirror --min-confidence 0.70 --stable-frames 7
+```
 
 When the camera window opens:
 
+```text
 Show one ASL letter sign inside the center box.
 Press q to quit.
 Press s to save a crop for testing.
+```
 
 Start with easy static letters:
 
+```text
 A, B, C, D, E, F, I, L, O, V, W, Y
+```
 
 Avoid these at first:
 
+```text
 J, Z
+```
 
-because they require motion, not just a single static image.
+These require motion, not just a single static image.
 
-Test ASL on one image
+## Test ASL on One Image
+
+```bash
 python scripts/asl_image_hf.py /path/to/asl_letter.jpg --top-k 5
+```
 
 Example:
 
+```bash
 python scripts/asl_image_hf.py /Users/nossaibakheiri/Downloads/asl_A.jpg --top-k 5
-2. Handwritten Letter Recognition Mode
+```
+
+---
+
+# 2. Handwritten Letter Recognition Mode
 
 This mode predicts a handwritten letter from an uploaded image.
 
 Current model:
 
+```text
 microsoft/trocr-base-handwritten
+```
 
-This model is better for real handwriting than the earlier EMNIST classifier, but for the final robot demo, the most reliable version will still be training a small model on your own handwriting images.
+This model works better for real handwriting than the earlier EMNIST classifier. However, for the final robot demo, the most reliable solution will still be to train a small model on your own handwritten-letter images.
 
-Install handwriting dependencies
+## Install Handwriting Dependencies
+
+```bash
 pip install -r requirements-handwriting.txt
 pip install -e .
-Run the upload app
+```
+
+## Run the Upload App
+
+```bash
 streamlit run scripts/handwriting_upload_app.py
+```
 
 Then open the local Streamlit link in your browser and upload an image.
 
 Best input:
 
+```text
 One large capital handwritten letter
 Dark pen or marker
 White paper
 Good lighting
 Not a whole word
-Test handwriting from terminal
+```
+
+## Test Handwriting from Terminal
+
+```bash
 python scripts/predict_handwritten_letter.py /path/to/letter.jpg --top-k 5
+```
+
+Example:
+
+```bash
+python scripts/predict_handwritten_letter.py /Users/nossaibakheiri/Downloads/A.jpg --top-k 5
+```
+
+---
+
+# 3. General Image-to-Text / OCR Mode
+
+This mode uses a vision-language model for OCR, image captioning, and structured extraction.
+
+## Install General Image-to-Text Dependencies
+
+```bash
+pip install -r requirements.txt
+pip install -e .
+```
+
+## Run OCR on an Image
+
+```bash
+image-to-text /path/to/image.png --task ocr
+```
+
+## Generate an Image Caption
+
+```bash
+image-to-text /path/to/image.jpg --task caption
+```
+
+## Extract Structured JSON
+
+```bash
+image-to-text /path/to/receipt.jpg --task json
+```
+
+---
+
+# Recommended Robot Flow
+
+The final robot workflow should look like this:
+
+```text
+Input image or webcam frame
+→ Predict letter
+→ Convert predicted letter to robot drawing path
+→ Send drawing commands to mDrawBot
+→ Robot writes the letter
+```
+
+For ASL mode:
+
+```text
+Webcam
+→ ASL classifier
+→ Predicted A-Z letter
+→ Robot writes the letter
+```
+
+For handwritten mode:
+
+```text
+Uploaded handwritten letter image
+→ Handwriting recognizer
+→ Predicted A-Z letter
+→ Robot writes the letter
+```
