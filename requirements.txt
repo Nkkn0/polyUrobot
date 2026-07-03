@@ -1,0 +1,7 @@
+torch>=2.2.0
+accelerate>=0.33.0
+pillow>=10.0.0
+qwen-vl-utils>=0.0.8
+python-dotenv>=1.0.1
+click>=8.1.7
+transformers>=4.57.0

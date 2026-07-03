@@ -1,0 +1,8 @@
+# Lightweight pretrained still-image ASL classifier
+# Uses abdollahhh/asl-sign-language-efficientnet-b0 from Hugging Face.
+torch>=2.2.0
+transformers>=4.40.0
+pillow>=10.0.0
+
+# Needed only for webcam testing with scripts/run_asl_hf_webcam.py
+opencv-python>=4.9.0

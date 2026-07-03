@@ -1,0 +1,8 @@
+# Lightweight real-time ASL mode
+opencv-python>=4.9.0
+mediapipe>=0.10.14
+numpy>=1.24.0
+scikit-learn>=1.4.0
+joblib>=1.3.0
+# Optional, only needed if sending letters to the robot over serial:
+pyserial>=3.5

@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "image-to-text-vlm"
+version = "0.1.0"
+description = "Image to text/OCR/captioning with open Hugging Face vision-language models."
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{ name = "Nossaiba Kheiri" }]
+dependencies = [
+    "torch>=2.2.0",
+    "accelerate>=0.33.0",
+    "pillow>=10.0.0",
+    "qwen-vl-utils>=0.0.8",
+    "python-dotenv>=1.0.1",
+    "click>=8.1.7",
+    "transformers>=4.57.0",
+]
+
+[project.optional-dependencies]
+asl-lite = [
+    "opencv-python>=4.9.0",
+    "mediapipe>=0.10.14",
+    "numpy>=1.24.0",
+    "scikit-learn>=1.4.0",
+    "joblib>=1.3.0",
+    "pyserial>=3.5",
+]
+asl-hf = [
+    "torch>=2.2.0",
+    "transformers>=4.40.0",
+    "pillow>=10.0.0",
+]
+
+[project.scripts]
+image-to-text = "image_to_text_vlm.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
